@@ -20,7 +20,7 @@
     "styled-components": "^5.3.6",
     "use-image": "^1.1.0",
     "use-sound": "^4.0.1",
-    "uuid": "^9.0.0"
+    "uuid": "^7.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

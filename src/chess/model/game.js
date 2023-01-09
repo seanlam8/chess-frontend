@@ -1,4 +1,4 @@
-import Chess from 'chess.js'
+import Chess from './game.js'
 import Piece from './piece'
 import Square from './square'
 // when indexing, remember: [y][x]. 

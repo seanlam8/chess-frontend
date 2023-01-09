@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Navigate, Routes } from 'react-router-dom';
 import JoinRoom from './onboard/joinroom'
 import { ColorContext } from './context/colorcontext'
 import Onboard from './onboard/onboard'
@@ -34,36 +34,34 @@ import ChessGame from './chess/ui/chessgame'
 
 function App() {
 
-  const [didRedirect, setDidRedirect] = React.useState(false)
+  const [didNavigate, setDidNavigate] = React.useState(false)
 
-  const playerDidRedirect = React.useCallback(() => {
-    setDidRedirect(true)
+  const playerDidNavigate = React.useCallback(() => {
+    setDidNavigate(true)
   }, [])
 
-  const playerDidNotRedirect = React.useCallback(() => {
-    setDidRedirect(false)
+  const playerDidNotNavigate = React.useCallback(() => {
+    setDidNavigate(false)
   }, [])
 
   const [userName, setUserName] = React.useState('')
 
   return (
-    <ColorContext.Provider value = {{didRedirect: didRedirect, playerDidRedirect: playerDidRedirect, playerDidNotRedirect: playerDidNotRedirect}}>
+    <ColorContext.Provider value = {{didNavigate: didNavigate, playerDidNavigate: playerDidNavigate, playerDidNotNavigate: playerDidNotNavigate}}>
       <Router>
-        <Switch>
-          <Route path = "/" exact>
-            <Onboard setUserName = {setUserName}/>
-          </Route>
-          <Route path = "/game/:gameid" exact>
-            {didRedirect ? 
+        <Routes>
+          <Route path = "/" element={<Onboard setUserName = {setUserName}/>}/>
+          <Route path = ":uuid" exact>
+            {didNavigate ? 
               <React.Fragment>
-                    <JoinGame userName = {userName} isCreator = {true} />
-                    <ChessGame myUserName = {userName} />
+                    <Route path = "/" element={<JoinGame userName = {userName} isCreator = {true} />}/>
+                    <Route path = "/" element={<ChessGame myUserName = {userName} />}/>
               </React.Fragment> 
               :
-              <JoinRoom />}
+              <Route path = "/" element={<JoinRoom />}/>}
           </Route>
-          <Redirect to = "/" />
-        </Switch>
+          <Route path = "/" element={<Navigate to = "/" />}/>
+        </Routes>
       </Router>
     </ColorContext.Provider>);
 }

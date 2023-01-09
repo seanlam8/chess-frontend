@@ -1,5 +1,5 @@
 import React from 'react'
-import Game from '../model/chess'
+import Game from '../model/game'
 import Square from '../model/square'
 import { Stage, Layer } from 'react-konva';
 import Board from '../assets/chessBoard.png'
