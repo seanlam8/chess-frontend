@@ -311,7 +311,7 @@ const ChessGameWrapper = (props) => {
               <ChessGame
                 playAudio={play}
                 gameId={gameid}
-                color={color.didRedirect}
+                color={color.didNavigate}
               />
               <VideoChatApp
                 mySocketId={socket.id}
